@@ -10,7 +10,4 @@ router.use("/gallery", galleryRoutes)
 const pictureRoutes = require("./picture")
 router.use("/picture", pictureRoutes)
 
-const pictureInteract = require("./pictures")
-router.use("/:image_id", pictureInteract)
-
 module.exports = router;
