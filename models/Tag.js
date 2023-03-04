@@ -1,6 +1,13 @@
 const {Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection.js");
 
+/**
+ * ORM Model for the tag table.
+ * 
+ * @property {number} id The private key of the tag.
+ * 
+ * @property {string} name The name of the tag.
+ */
 class Tag extends Model {}
 
 Tag.init({

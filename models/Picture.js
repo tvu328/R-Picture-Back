@@ -1,6 +1,17 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection.js");
 
+/**
+ * ORM Model for the picture table.
+ * 
+ * 
+ * @property {number} id The private key of the picture.
+ * @property {number} userId The user foreign key that owns the picture.
+ * 
+ * @property {string} name The display name of the picture.
+ * @property {string} description The description of the picture.
+ * @property {string} S3URL The url of the picture hosted on AWS S3.
+ */
 class Picture extends Model { }
 
 Picture.init({
@@ -21,7 +32,7 @@ Picture.init({
 		type: DataTypes.STRING,
 		allowNull: false,
 		validate: {
-			//TODO: Validate S3URLS with REGEX
+			isUrl: true,
 		}
 	}
 }, {

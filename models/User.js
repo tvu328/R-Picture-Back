@@ -2,6 +2,16 @@ const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection.js");
 const bcrypt = require("bcrypt");
 
+/**
+ * ORM Model for the user table.
+ * 
+ * @property {number} id The private key of the user.
+ * 
+ * @property {string} email The email of the user.
+ * @property {string} password The password hash of the user.
+ * @property {string} displayName The display name of the user.
+ * @property {string} bio The biography of the user.
+ */
 class User extends Model { }
 
 User.init({
