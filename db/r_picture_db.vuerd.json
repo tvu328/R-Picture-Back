@@ -3,8 +3,8 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -533.2000000000002,
-    "scrollLeft": -341.79999999999995,
+    "scrollTop": -520.4,
+    "scrollLeft": -357,
     "zoomLevel": 0.5,
     "show": {
       "tableComment": true,
@@ -166,7 +166,7 @@
           "active": false,
           "left": 887.4763,
           "top": 952.9044,
-          "zIndex": 485,
+          "zIndex": 3,
           "widthName": 60,
           "widthComment": 60
         },
@@ -297,7 +297,7 @@
           "active": false,
           "left": 243.6784,
           "top": 651.6428,
-          "zIndex": 510,
+          "zIndex": 5,
           "widthName": 60,
           "widthComment": 60
         },
@@ -405,7 +405,7 @@
           "active": false,
           "left": 202.4764,
           "top": 1243.1749,
-          "zIndex": 482,
+          "zIndex": 2,
           "widthName": 60,
           "widthComment": 60
         },
@@ -490,7 +490,7 @@
           "active": false,
           "left": 238.4286,
           "top": 112.4764,
-          "zIndex": 430,
+          "zIndex": 1,
           "widthName": 60,
           "widthComment": 60
         },
@@ -575,7 +575,7 @@
           "active": false,
           "left": 260.8573,
           "top": 378.7619,
-          "zIndex": 502,
+          "zIndex": 4,
           "widthName": 66.32080078125,
           "widthComment": 77.892578125
         },
@@ -683,7 +683,7 @@
           "active": false,
           "left": 232.2382,
           "top": 953.2381,
-          "zIndex": 516,
+          "zIndex": 6,
           "widthName": 86.54443359375,
           "widthComment": 77.892578125
         },
@@ -791,7 +791,7 @@
           "active": false,
           "left": 911.5715,
           "top": 619.4921,
-          "zIndex": 519,
+          "zIndex": 7,
           "widthName": 60,
           "widthComment": 60
         },
@@ -799,7 +799,7 @@
         "id": "32d524c1-d1bf-4054-90e9-f994c06f2069"
       },
       {
-        "name": "likes",
+        "name": "like",
         "comment": "",
         "columns": [
           {
@@ -899,7 +899,7 @@
           "active": false,
           "left": 881.2222,
           "top": 290,
-          "zIndex": 522,
+          "zIndex": 11,
           "widthName": 60,
           "widthComment": 60
         },
