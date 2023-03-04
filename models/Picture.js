@@ -38,7 +38,8 @@ Picture.init({
 		allowNull: false,
 		validate: {
 			isUrl: true,
-		}
+		},
+		field: "s3_url",
 	}
 }, {
 	sequelize: sequelize,
