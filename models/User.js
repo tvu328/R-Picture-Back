@@ -43,7 +43,10 @@ User.init({
 			user.password = await bcrypt.hash(user.password, 4);
 			return user;
 		},
-	}
+	},
+	freezeTableName: true,
+	underscored: true,
+	modelName: "user",
 });
 
 module.exports = User;

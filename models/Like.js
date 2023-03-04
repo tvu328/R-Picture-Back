@@ -13,7 +13,10 @@ Like.init({
 		}
 	}
 }, {
-	sequelize: sequelize
+	sequelize: sequelize,
+	freezeTableName: true,
+	underscored: true,
+	modelName: "like",
 });
 
 module.exports = Like;

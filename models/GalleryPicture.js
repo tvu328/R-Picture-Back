@@ -6,7 +6,10 @@ class GalleryPicture extends Model {}
 GalleryPicture.init({
 
 }, {
-	sequelize: sequelize
+	sequelize: sequelize,
+	freezeTableName: true,
+	underscored: true,
+	modelName: "gallery_picture",
 });
 
 module.exports = GalleryPicture;

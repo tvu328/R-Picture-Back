@@ -6,7 +6,10 @@ class PictureTag extends Model {}
 PictureTag.init({
 
 }, {
-	sequelize: sequelize
+	sequelize: sequelize,
+	freezeTableName: true,
+	underscored: true,
+	modelName: "picture_tag",
 });
 
 module.exports = PictureTag;

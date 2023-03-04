@@ -25,7 +25,10 @@ Picture.init({
 		}
 	}
 }, {
-	sequelize: sequelize
+	sequelize: sequelize,
+	freezeTableName: true,
+	underscored: true,
+	modelName: "picture",
 });
 
 module.exports = Picture;
