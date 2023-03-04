@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection.js");
+const { default: dayjs, Dayjs } = require("dayjs");
 
 /**
  * ORM Model for the comment table.
@@ -12,6 +13,9 @@ const sequelize = require("../config/connection.js");
  * @property {number} pictureId The picture foreign key that the comment was posted to.
  * 
  * @property {string} text The text body of the comment.
+ * 
+ * @property {Date} createdAt The date/time that the comment was created at.
+ * @property {Date} updatedAt The date/time that the comment was last updated at.
  */
 class Comment extends Model { }
 

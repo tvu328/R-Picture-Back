@@ -17,6 +17,9 @@ const bcrypt = require("bcrypt");
  * @property {string} password The password hash of the user.
  * @property {string} displayName The display name of the user.
  * @property {string} bio The biography of the user.
+ * 
+ * @property {Date} createdAt The date/time that the user was created at.
+ * @property {Date} updatedAt The date/time that the user was last updated at.
  */
 class User extends Model { }
 

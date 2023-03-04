@@ -16,6 +16,9 @@ const sequelize = require("../config/connection.js");
  * @property {string} name The display name of the picture.
  * @property {string} description The description of the picture.
  * @property {string} S3URL The url of the picture hosted on AWS S3.
+ * 
+ * @property {Date} createdAt The date/time that the picture was created at.
+ * @property {Date} updatedAt The date/time that the picture was last updated at.
  */
 class Picture extends Model { }
 

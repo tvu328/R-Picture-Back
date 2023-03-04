@@ -9,6 +9,9 @@ const sequelize = require("../config/connection.js");
  * @property {number} id The private key of the tag.
  * 
  * @property {string} name The name of the tag.
+ * 
+ * @property {Date} createdAt The date/time that the tag was created at.
+ * @property {Date} updatedAt The date/time that the tag was last updated at.
  */
 class Tag extends Model {}
 

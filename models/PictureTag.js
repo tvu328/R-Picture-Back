@@ -9,6 +9,9 @@ const sequelize = require("../config/connection.js");
  * @property {number} id The private key of the picture_tag link.
  * @property {number} tagId The tag foreign key that this links to.
  * @property {number} pictureId The picture foreign key that this links to.
+ * 
+ * @property {Date} createdAt The date/time that the picture_tag was created at.
+ * @property {Date} updatedAt The date/time that the picture_tag was last updated at.
  */
 class PictureTag extends Model {}
 

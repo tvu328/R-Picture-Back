@@ -13,6 +13,9 @@ const sequelize = require("../config/connection.js");
  * 
  * @property {string} name The display name of the gallery.
  * @property {string} description The description of the gallery.
+ * 
+ * @property {Date} createdAt The date/time that the gallery was created at.
+ * @property {Date} updatedAt The date/time that the gallery was last updated at.
  */
 class Gallery extends Model { }
 

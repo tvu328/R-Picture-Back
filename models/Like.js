@@ -12,6 +12,9 @@ const sequelize = require("../config/connection.js");
  * @property {number} pictureId The picture foreign key that the comment was posted to.
  * 
  * @property {number} delta Either +1 or -1. Whether the user liked or disliked the picture.
+ * 
+ * @property {Date} createdAt The date/time that the like was created at.
+ * @property {Date} updatedAt The date/time that the like was last updated at.
  */
 class Like extends Model { }
 

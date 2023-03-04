@@ -10,6 +10,9 @@ const sequelize = require("../config/connection.js");
  * @property {number} userId The user foreign key that owns the gallery_picture link.
  * @property {number} galleryId The gallery foreign key that this links to.
  * @property {number} pictureId The picture foreign key that this links to.
+ * 
+ * @property {Date} createdAt The date/time that the gallery_picture was created at.
+ * @property {Date} updatedAt The date/time that the gallery_picture was last updated at.
  */
 class GalleryPicture extends Model {}
 
