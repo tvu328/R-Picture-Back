@@ -4,8 +4,8 @@ const sequelize = require("../config/connection.js");
 /**
  * ORM Model for the like table.
  * 
- * Likes belong to a user via userId.
- * Likes belong to a picture via pictureId.
+ * Likes belong to Users.
+ * Likes belong to Pictures.
  * 
  * @property {number} id The private key of the comment.
  * @property {number} userId The user foreign key that owns the comment.

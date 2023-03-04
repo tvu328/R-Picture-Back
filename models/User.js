@@ -5,6 +5,12 @@ const bcrypt = require("bcrypt");
 /**
  * ORM Model for the user table.
  * 
+ * Users have many Pictures.
+ * Users have many Galleries.
+ * Users have many GalleryPictures.
+ * Users have many Comments.
+ * Users have many Likes.
+ * 
  * @property {number} id The private key of the user.
  * 
  * @property {string} email The email of the user.

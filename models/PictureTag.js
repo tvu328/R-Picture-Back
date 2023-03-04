@@ -4,6 +4,7 @@ const sequelize = require("../config/connection.js");
 /**
  * ORM Model for the picture_tag through table.
  * 
+ * Connects many Pictures to many Tags.
  * 
  * @property {number} id The private key of the picture_tag link.
  * @property {number} tagId The tag foreign key that this links to.

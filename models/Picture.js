@@ -4,6 +4,11 @@ const sequelize = require("../config/connection.js");
 /**
  * ORM Model for the picture table.
  * 
+ * Pictures belong to Users.
+ * Pictures have many Likes.
+ * Pictures have many Comments.
+ * Pictures have many Tags through PictureTag.
+ * Pictures have many Galleries through GalleryPicture.
  * 
  * @property {number} id The private key of the picture.
  * @property {number} userId The user foreign key that owns the picture.

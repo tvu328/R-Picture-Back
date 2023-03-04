@@ -4,8 +4,8 @@ const sequelize = require("../config/connection.js");
 /**
  * ORM Model for the comment table.
  * 
- * Comments belong to a user via userId.
- * Comments belong to a picture via pictureId.
+ * Comments belong to Users.
+ * Comments belong to Pictures.
  * 
  * @property {number} id The private key of the comment.
  * @property {number} userId The user foreign key that owns the comment.
