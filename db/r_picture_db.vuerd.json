@@ -3,8 +3,8 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -282,
-    "scrollLeft": -46,
+    "scrollTop": -611.6000000000001,
+    "scrollLeft": -148.99999999999997,
     "zoomLevel": 0.8,
     "show": {
       "tableComment": true,
@@ -174,7 +174,7 @@
         "id": "45757b89-133b-4ce0-927e-acca77cf9f8e"
       },
       {
-        "name": "image",
+        "name": "picture",
         "comment": "",
         "columns": [
           {
@@ -297,7 +297,7 @@
           "active": false,
           "left": 243.6784,
           "top": 651.6428,
-          "zIndex": 488,
+          "zIndex": 492,
           "widthName": 60,
           "widthComment": 60
         },
@@ -498,7 +498,7 @@
         "id": "fc762590-f820-486d-b952-e295190c526f"
       },
       {
-        "name": "tag_image",
+        "name": "image_tag",
         "comment": "through table",
         "columns": [
           {
@@ -575,7 +575,7 @@
           "active": false,
           "left": 260.8573,
           "top": 378.7619,
-          "zIndex": 490,
+          "zIndex": 494,
           "widthName": 62.708984375,
           "widthComment": 77.892578125
         },
