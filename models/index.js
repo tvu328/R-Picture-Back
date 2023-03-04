@@ -22,8 +22,8 @@ Comment.belongsTo(User);
 User.hasMany(Like);
 Like.belongsTo(User);
 
-Picture.hasMany(Tag, { through: PictureTag });
-Tag.hasMany(Picture, { through: PictureTag });
+Picture.belongsToMany(Tag, { through: PictureTag });
+Tag.belongsToMany(Picture, { through: PictureTag });
 
 Picture.hasMany(Comment);
 Comment.belongsTo(Picture);
@@ -31,8 +31,8 @@ Comment.belongsTo(Picture);
 Picture.hasMany(Like);
 Like.belongsTo(Picture);
 
-Picture.hasMany(Gallery, { through: GalleryPicture });
-Gallery.hasMany(Picture, { through: GalleryPicture });
+Picture.belongsToMany(Gallery, { through: GalleryPicture });
+Gallery.belongsToMany(Picture, { through: GalleryPicture });
 
 module.exports = {
 	Comment,
