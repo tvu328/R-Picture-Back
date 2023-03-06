@@ -6,6 +6,7 @@ const sequelize = require("../config/connection.js");
  * 
  * Galleries belong to Users.
  * Galleries have many Pictures through GalleryPicture.
+ * Galleries have manu GalleryFollowingUsers through GalleryUsers.
  * 
  * @property {number} id The private key of the gallery.
  * @property {number} userId The user foreign key that owns the gallery.

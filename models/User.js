@@ -7,9 +7,12 @@ const bcrypt = require("bcrypt");
  * 
  * Users have many Pictures.
  * Users have many Galleries.
+ * Users have many FollowedGalleries through GalleryUser.
  * Users have many GalleryPictures.
  * Users have many Comments.
  * Users have many Likes.
+ * Users have many UserFollowingUsers through UserUser.
+ * Users have many FollowedUsers through UserUser.
  * 
  * @property {number} id The private key of the user.
  * 
