@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const { User, Picture } = require("../../models");
+const { User } = require("../../models");
 //const jwt = require("jsonwebtoken");
 
 //Get 1 user
@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
 router.put("/:userId", async (req, res) => {
     try {
         const findUser = await User.findByPk(req.params.userId)
-        if (!findUser) {
+        if(!findUser){
             return res.sendStatus(404)
         }
         if (req.body.newPassword && !req.body.oldPassword) {
@@ -89,10 +89,10 @@ router.delete("/:userId", async (req, res) => {
         if (!user) {
             res.sendStatus(404)
         }
-        if (!req.body.password) {
+        if(!req.body.password){
             return res.sendStatus(400)
         }
-        if (await bcrypt.compare(req.body.password, user.password)) {
+        if(await bcrypt.compare(req.body.password,user.password)){
             const deleteUser = await User.destroy(
                 {
                     where: {
@@ -100,23 +100,10 @@ router.delete("/:userId", async (req, res) => {
                     }
                 })
             res.json(deleteUser)
-        } else {
-            res.sendStatus(403)
+        }else{
+        res.sendStatus(403)
         }
     } catch (err) {
-        console.log(err);
-        res.sendStatus(500);
-    }
-})
-
-router.get("/:userId/feed", async (req, res) => {
-    try {
-        const user = await User.findByPk(req.params.userId, { include: [Picture] })
-        if (!user) {
-            res.sendStatus(404)
-        }
-        
-    }catch(err) {
         console.log(err);
         res.sendStatus(500);
     }
