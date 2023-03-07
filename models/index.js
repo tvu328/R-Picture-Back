@@ -36,11 +36,11 @@ Like.belongsTo(Picture);
 Picture.belongsToMany(Gallery, { through: GalleryPicture });
 Gallery.belongsToMany(Picture, { through: GalleryPicture });
 
-User.belongsToMany(Gallery, { through: GalleryUser, as: "galleryFollowingUser", foreignKey: "followerUserId" });
-Gallery.belongsToMany(User, { through: GalleryUser, as: "followedGallery", foreignKey: "followedGalleryId" });
+User.belongsToMany(Gallery, { through: GalleryUser, as: { singular: "galleryFollowingUser", plural: "galleryFollowingUser" }, foreignKey: "followerUserId" });
+Gallery.belongsToMany(User, { through: GalleryUser, as: { singular: "followedGallery", plural: "followedGallery" }, foreignKey: "followedGalleryId" });
 
-User.belongsToMany(User, { through: UserUser, as: "userFollowingUser", foreignKey: "followerUserId" });
-User.belongsToMany(User, { through: UserUser, as: "followedUser", foreignKey: "followedUserId" });
+User.belongsToMany(User, { through: UserUser, as: { singular: "userFollowingUser", plural: "userFollowingUser" }, foreignKey: "followerUserId" });
+User.belongsToMany(User, { through: UserUser, as: { singular: "followedUser", plural: "followedUser" }, foreignKey: "followedUserId" });
 
 UserUser.belongsTo(User, { as: "followedUser" });
 UserUser.belongsTo(User, { as: "userFollowingUser" });
