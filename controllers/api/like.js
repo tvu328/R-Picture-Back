@@ -49,6 +49,18 @@ router.put("/:likeId", async (req, res) => {
 			return res.sendStatus(422);
 		}
 
+		const [rows] = await Like.update({
+			delta: req.body.delta
+		}, {
+			where: {
+				id: req.params.likeId
+			}
+		});
+		console.log(rows);
+		if (rows) {
+			return res.sendStatus(204);
+		}
+
 		return res.sendStatus(404);
 	} catch (error) {
 		console.log(error);
@@ -58,7 +70,16 @@ router.put("/:likeId", async (req, res) => {
 
 router.delete("/:likeId", async (req, res) => {
 	try {
+		const rows = await Like.destroy({
+			where: {
+				id: req.params.likeId
+			}
+		});
+		if (rows === 0) {
+			return res.sendStatus(404);
+		}
 
+		return res.status(200).json({ rows: rows });
 	} catch (error) {
 		console.log(error);
 		return res.sendStatus(500);
