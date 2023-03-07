@@ -41,7 +41,7 @@ User.init({
 		allowNull: false,
 		validate: {
 			notEmpty: true,
-			//not: /^([^a-z]*|[^A-Z]*|[^0-9]*|[a-zA-Z0-9]*|.{0,7})$/,
+			not: /^([^a-z]*|[^A-Z]*|[^0-9]*|[a-zA-Z0-9]*|.{0,7})$/,
 		}
 	},
 	displayName: {
