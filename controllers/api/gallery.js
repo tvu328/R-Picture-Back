@@ -5,28 +5,29 @@ const { Gallery, User, Like, Picture, Comment } = require("../../models");
 
 router.get("/:galleryId", async (req, res) => {
 	try {
-		const picturesOnly = req.query["pictures-only"] || false;
-		const pageLength = req.query["page-length"] || 10;
-		const pageNumber = req.query["page-number"] || 0;
+		const picturesOnly = (req.query["pictures-only"] === 'true') || false;
+		const pageLength = (req.query["page-length"]) || 10;
+		const pageNumber = (req.query["page-number"]) || 0;
 
 		const userId = 1;
 		const galleryId = req.params.galleryId;
 
 		const gallery = await Gallery.findByPk(galleryId, {
-			attributes: [
+			attributes: picturesOnly ? [] : [
 				"id",
 				"name",
 				"description",
 			],
 			include: [
-				{
+				...(picturesOnly ? [] : [{
 					through: {
 						attributes: []
 					},
 					model: User,
 					as: "followedGallery",
 					attributes: ["id"],
-				}, {
+				}]),
+				{
 					through: {
 						attributes: []
 					},
@@ -54,11 +55,13 @@ router.get("/:galleryId", async (req, res) => {
 			ownerName: picture.user.displayName,
 			commentCount: picture.comments.length,
 			imageURL: picture.S3URL,
-			score: picture.likes.reduce((score, {delta}) => score + delta, 0),
+			score: picture.likes.reduce((score, { delta }) => score + delta, 0),
 			like: picture.likes.find(like => like.id === userId),
 		}));
 
-		return res.status(200).json({
+		const responseJson = picturesOnly ? {
+			pictures: pictures,
+		} : {
 			id: gallery.id,
 			name: gallery.name,
 			description: gallery.description,
@@ -66,7 +69,8 @@ router.get("/:galleryId", async (req, res) => {
 			following: !!gallery.followedGallery.find(user => user.id === userId),
 			followerCount: gallery.followedGallery.length,
 			pictures: pictures,
-		});
+		};
+		return res.status(200).json(responseJson);
 	} catch (error) {
 		console.log(error);
 		return res.sendStatus(500);
