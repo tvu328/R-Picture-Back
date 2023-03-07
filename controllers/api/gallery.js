@@ -5,14 +5,18 @@ const { Gallery, User, Like, Picture, Comment } = require("../../models");
 
 router.get("/:galleryId", async (req, res) => {
 	try {
+		// Get the query paramaters and cast the to the correct types.
 		const picturesOnly = (req.query["pictures-only"] === 'true') || false;
-		const pageLength = (req.query["page-length"]) || 10;
-		const pageNumber = (req.query["page-number"]) || 0;
+		const pageLength = parseInt(req.query["page-length"]) || 10;
+		const pageNumber = parseInt(req.query["page-number"]) || 0;
 
 		const userId = 1;
 		const galleryId = req.params.galleryId;
 
 		const gallery = await Gallery.findByPk(galleryId, {
+			limit: pageLength,
+			offset: pageNumber * pageLength,
+			subQuery: false,
 			attributes: picturesOnly ? [] : [
 				"id",
 				"name",
