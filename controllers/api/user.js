@@ -9,7 +9,7 @@ router.get("/:userId", async (req, res) => {
     try {
         const user = await User.findByPk(req.params.userId)
         if (!user) {
-            res.sendStatus(404).json({ msg: "No such user" })
+            res.sendStatus(404)
         } else {
             res.json(user)
         }
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
             return res.sendStatus(422)
         }
         const newUser = await User.create(req.body)
-        res.json(newUser)
+        res.status(201).json(newUser)
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
@@ -88,6 +88,9 @@ router.delete("/:userId", async (req, res) => {
         const user = await User.findByPk(req.params.userId)
         if (!user) {
             res.sendStatus(404)
+        }
+        if(!req.body.password){
+            return res.sendStatus(400)
         }
         if(await bcrypt.compare(req.body.password,user.password)){
             const deleteUser = await User.destroy(
