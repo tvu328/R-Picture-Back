@@ -127,26 +127,26 @@ router.get("/:userId/feed", async (req, res) => {
                     model: Picture,
                     attributes: ["id", "name", "S3URL"],
                     include: [
-						{
-							model: User,
-							attributes: ["displayName"]
-						}, {
-							model: Comment,
-							attributes: ["id"]
-						}, {
-							model: Like,
-							attributes: ["id", "delta"]
-						}
-					]
+                        {
+                            model: User,
+                            attributes: ["displayName"]
+                        }, {
+                            model: Comment,
+                            attributes: ["id"]
+                        }, {
+                            model: Like,
+                            attributes: ["id", "delta"]
+                        }
+                    ]
                 }]
-            },{
+            }, {
                 through: {
                     attributes: []
                 },
                 model: User,
                 as: "userFollowingUser",
-                attributes: ["id","displayName"],
-                include:[{
+                attributes: ["id", "displayName"],
+                include: [{
                     model: Picture,
                     attributes: ["id", "name", "S3URL"],
                     include: [
@@ -161,26 +161,30 @@ router.get("/:userId/feed", async (req, res) => {
                 }]
             }]
         })
+        const galleryPictures = user.galleryFollowingUser.reduce((pictures, gallery) => {
+            return pictures.concat(gallery.picture.map(picture => ({
+                id: picture.id,
+                name: picture.name,
+                commentCount: picture.comments.length,
+                imageURL: picture.S3URL,
+                score: picture.likes.reduce((score, { delta }) => score + delta, 0),
+                like: picture.likes.find(like => like.id === userId),
 
-        const galleryPictures = user.galleryFollowingUser.map(picture => ({
-			id: picture.id,
-			name: picture.name,
-			commentCount: picture.comments.length,
-			imageURL: picture.S3URL,
-			score: picture.likes.reduce((score, { delta }) => score + delta, 0),
-			like: picture.likes.find(like => like.id === userId),
-		}));
+            })))
+        }, []);
 
-        const pictures = user.userFollowingUser.map(picture => ({
-			id: picture.id,
-			name: picture.name,
-			commentCount: picture.comments.length,
-			imageURL: picture.S3URL,
-			score: picture.likes.reduce((score, { delta }) => score + delta, 0),
-			like: picture.likes.find(like => like.id === userId),
-		}));
-
-        const feedPicture = galleryPictures.concat(pictures)
+        const pictures = user.userFollowingUser.reduce((pictures, users) => {
+            return pictures.concat(users.picture.map(picture => ({
+                id: picture.id,
+                name: picture.name,
+                commentCount: picture.comments.length,
+                imageURL: picture.S3URL,
+                score: picture.likes.reduce((score, { delta }) => score + delta, 0),
+                like: picture.likes.find(like => like.id === userId),
+            })));
+        }, []);
+        
+        const feedPictures = galleryPictures.concat(pictures)
 
         if (!user) {
             res.sendStatus(404)
@@ -189,7 +193,7 @@ router.get("/:userId/feed", async (req, res) => {
         const responseJson = {
             pageLength: pageLength,
             pageNumber: pageNumber,
-            pictures: feedPicture
+            pictures: feedPictures
         }
         res.status(200).json(responseJson)
     } catch (err) {
@@ -210,45 +214,45 @@ router.get("/:userId/profile", async (req, res) => {
             limit: pageLength,
             offset: pageNumber * pageLength,
             subQuery: false,
-            attributes: picturesOnly? [] : ["bio", "id", "displayName"],
+            attributes: picturesOnly ? [] : ["bio", "id", "displayName"],
             include: [
                 ...(picturesOnly ? [] : [{
-                through: {
-                    attributes: []
-                },
-                model: User,
-                as: "userFollowingUser",
-                attributes: ["id"]
-            }]),
-            {
-                model: Picture,
-                attributes: ["id", "name", "S3URL"],
-                include: [
-                    {
-                        model: Comment,
-                        attributes: ["id"]
-                    }, {
-                        model: Like,
-                        attributes: ["id", "delta"]
-                    }
-                ]
-            }
+                    through: {
+                        attributes: []
+                    },
+                    model: User,
+                    as: "userFollowingUser",
+                    attributes: ["id"]
+                }]),
+                {
+                    model: Picture,
+                    attributes: ["id", "name", "S3URL"],
+                    include: [
+                        {
+                            model: Comment,
+                            attributes: ["id"]
+                        }, {
+                            model: Like,
+                            attributes: ["id", "delta"]
+                        }
+                    ]
+                }
             ]
         })
 
         const pictures = user.pictures.map(picture => ({
-			id: picture.id,
-			name: picture.name,
-			commentCount: picture.comments.length,
-			imageURL: picture.S3URL,
-			score: picture.likes.reduce((score, { delta }) => score + delta, 0),
-			like: picture.likes.find(like => like.id === userId),
-		}));
+            id: picture.id,
+            name: picture.name,
+            commentCount: picture.comments.length,
+            imageURL: picture.S3URL,
+            score: picture.likes.reduce((score, { delta }) => score + delta, 0),
+            like: picture.likes.find(like => like.id === userId),
+        }));
 
         if (!user) {
             res.sendStatus(404)
         }
-        res.json(picturesOnly?{pictures:pictures}:{
+        res.json(picturesOnly ? { pictures: pictures } : {
             id: user.id,
             displayName: user.displayName,
             bio: user.bio,
