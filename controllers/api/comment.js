@@ -1,68 +1,89 @@
+const { text } = require("express");
 const express = require("express");
 const router = express.Router();
-const {Comments  } = require("../../models");
+const { Comment, Picture } = require("../../models");
 
-router.get("/", (req,res)=>{
+router.get("/", (req, res) => {
     res.send("This is from api/picture/comment controller for testing purpose")
 })
 
 router.post("/", async (req, res) => {
-	try {
-		if (!(req.body.pictureId) || !(req.body.text)) {
-			return res.sendStatus(400);
-		}
+    try {
+        const userId = 1
+        if (!(req.body.pictureId) || !(req.body.text)) {
+            return res.sendStatus(400);
+        }
+        if (typeof req.body.text !== "string") {
+            return res.sendStatus(422);
+        }
+        const rows = await Picture.count({
 
-    if (! (req.body.pictureId)  || !(req.body.userId) ) {
-			return res.sendStatus(422);
-		}
-	if (Comments) { return res.sendStatus(422);
-			}
-		
-        return res.sendStatus(201);
-	} catch (error) {
-		console.log(error);
-		return res.sendStatus(500);
-	}
+            where: {
+                id: req.body.pictureId
+            }
+        })
+
+        if (rows === 0) {
+            return res.sendStatus(422);
+        }
+        const comment = await Comment.create({
+            pictureId: req.body.pictureId,
+            text: req.body.text,
+            userId: userId
+        })
+        console.log(comment.id)
+        return res.status(201).json({ id: comment.id, text: comment.text });
+    } catch (error) {
+        console.log(error);
+        return res.sendStatus(500);
     }
+}
 );
 
 router.put("/:commentId", async (req, res) => {
-	try {
-		if (!(req.body.text)) {
-			return res.sendStatus(400);
-		}
+    try {
+        if (!(req.body.text)) {
+            return res.sendStatus(400);
+        }
 
-		if (!(req.body)) {
-			return res.sendStatus(422);
-		}
-		console.log(rows);
-		if (rows) {
-			return res.sendStatus(201);
-		}
-
-		return res.sendStatus(201);
-	} catch (error) {
-		console.log(error);
-		return res.sendStatus(500);
-	}
+        if ((typeof req.body.text !== "string")) {
+            return res.sendStatus(422);
+        }
+        const [rows] = await Comment.update(
+            {
+                text: req.body.text
+            },
+            {
+                where: {
+                    id: req.params.commentId
+                }
+            })
+        if (rows === 0) {
+            return res.sendStatus(404)
+        }
+        return res.status(200).json({ text: req.body.text });
+    } catch (error) {
+        console.log(error);
+        return res.sendStatus(500);
+    }
 });
 
 router.delete("/:commentId", async (req, res) => {
-	try {
-		const rows = await Comments.destroy({
-			where: {
-				id: req.params.commentId
-			}
-		});
-		if (rows === 0) {
-			return res.sendStatus(404);
-		}
+    try {
+        const rows = await Comment.destroy({
+            where: {
+                id: req.params.commentId
+            }
+        });
+        if (rows === 0) {
+            return res.sendStatus(404);
+        }
 
-		return res.status(200).json({ rows: rows });
-	} catch (error) {
-		console.log(error);
-		return res.sendStatus(500);
-	}
+        return res.status(200).json({ rows: rows });
+    } catch (error) {
+        console.log(error);
+        return res.sendStatus(500);
+    }
 });
 
 
