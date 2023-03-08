@@ -10,4 +10,7 @@ router.use("/gallery", galleryRoutes)
 const pictureRoutes = require("./picture")
 router.use("/picture", pictureRoutes)
 
+const likeRoutes = require("./like")
+router.use("/like", likeRoutes)
+
 module.exports = router;
