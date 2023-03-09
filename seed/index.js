@@ -1,9 +1,12 @@
+require("dotenv").config();
 const sequelize = require("../config/connection");
-const { User, Comment, GalleryPicture } = require("../models");
+const { User, Comment, GalleryPicture, Like, GalleryUser, Gallery, Picture, PictureTag, Tag, UserUser} = require("../models");
 
 
 const comments = [
 	{
+		userId:'',
+		pictureId:'',
 		text: ''
 	}
 ]
@@ -17,21 +20,23 @@ const gallery = [
 
 const galleryPictures = [
 	{
-		name: '',
-		description: ''
+		userId: '',
+		galleryId: '',
+		pictureId: ''
 	}
 ]
 
 const galleryUsers = [
 	{
-		name: '',
-		description: ''
+		followerUserId: '',
+		followedGalleryId: ''
 	}
 ]
 
 const likes = [
 	{
-		count: ''
+		userId: '',
+		pictureId: ''
 	}
 ]
 
@@ -44,13 +49,14 @@ const pictures = [
 
 const pictureTags = [
 	{
-		tag:''
+		tagId:'',
+		pictureId:''
 	}
 ]
 
 const tags = [
 	{
-		tag:'' 
+		name:['Tyler', 'Joe', 'Hieu', 'Kailen', 'Julian', 'Eli', 'Henry', 'Mathew', 'Sara', 'Martin']
 	}
 ]
 
@@ -68,43 +74,35 @@ const users = [
 		bio: 'Will theRadish please stand up.'
 	},
 	{
-		email: 'eli@joe.com',
+		email: 'sara@joe.com',
 		password: 'password',
-		displayName: 'theRadish',
-		bio: 'Will theRadish please stand up.'
+		displayName: 'sara',
+		bio: 'Will sara please stand up.'
 	},
 	{
-		email: 'eli@joe.com',
+		email: 'martin@joe.com',
 		password: 'password',
-		displayName: 'theRadish',
-		bio: 'Will theRadish please stand up.'
+		displayName: 'theMartin',
+		bio: 'Will theMartin please stand up.'
 	}
 ]
 
 const userUsers = [
 	{
-		email: 'joe@joe.com',
-		password: 'password',
-		displayName: 'theRealJoe',
-		bio: 'Will theRealJoe please stand up.'
+		followerUserId: 'sarasmith123',
+		followedUserId: 'martin55'
 	},
 	{
-		email: 'eli@joe.com',
-		password: 'password',
-		displayName: 'theRadish',
-		bio: 'Will theRadish please stand up.'
+		followerUserId: 'martin55',
+		followedUserId: 'mathew67'
 	},
 	{
-		email: 'eli@joe.com',
-		password: 'password',
-		displayName: 'theRadish',
-		bio: 'Will theRadish please stand up.'
+		followerUserId: 'mathew67',
+		followedUserId: 'joe34'
 	},
 	{
-		email: 'eli@joe.com',
-		password: 'password',
-		displayName: 'theRadish',
-		bio: 'Will theRadish please stand up.'
+		followerUserId: 'joe34',
+		followedUserId: 'henry17'
 	}
 ]
 
@@ -112,16 +110,16 @@ const seed = async () => {
 	try {
 		await sequelize.sync({ force: true });
 
-		await User.bulkCreate(comments);
-		await User.bulkCreate(gallery);
-		await User.bulkCreate(galleryPictures);
-		await User.bulkCreate(galleryUsers);
-		await User.bulkCreate(likes);
-		await User.bulkCreate(pictures);
-		await User.bulkCreate(pictureTags);
-		await User.bulkCreate(tags);
+		// await Comment.bulkCreate(comments);
+		// await Gallery.bulkCreate(gallery);
+		// await GalleryPicture.bulkCreate(galleryPictures);
+		// await GalleryUser.bulkCreate(galleryUsers);
+		// await Like.bulkCreate(likes);
+		// await Picture.bulkCreate(pictures);
+		// await PictureTag.bulkCreate(pictureTags);
+		// await Tag.bulkCreate(tags);
 		await User.bulkCreate(users);
-		await User.bulkCreate(userUsers);
+		// await UserUser.bulkCreate(userUsers);
 
 		process.exit(0);
 	} catch (err) {
