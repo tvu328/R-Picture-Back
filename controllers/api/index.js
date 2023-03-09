@@ -14,7 +14,11 @@ router.use("/gallery", galleryRoutes)
 const pictureRoutes = require("./picture")
 router.use("/picture", pictureRoutes)
 
-const likeRoutes = require("./like");
+const commentRoutes = require("./comment")
+router.use("/comment", commentRoutes)
+
+const likeRoutes = require("./like")
 router.use("/like", likeRoutes)
+
 
 module.exports = router;
