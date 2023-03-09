@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+
+const searchRoutes = require("./search");
+router.use("/search", searchRoutes);
+
 const userRoutes = require("./user")
 router.use("/user", userRoutes)
 
@@ -9,7 +13,6 @@ router.use("/gallery", galleryRoutes)
 
 const pictureRoutes = require("./picture")
 router.use("/picture", pictureRoutes)
-
 
 const commentRoutes = require("./comment")
 router.use("/comment", commentRoutes)
