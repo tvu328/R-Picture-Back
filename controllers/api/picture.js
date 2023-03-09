@@ -18,14 +18,23 @@ router.post("/:pictureId/gallery", async (req, res) => {
 		if (pictureCount === 0 || galleryCount === 0) {
 			return res.sendStatus(404);
 		}
-
-		await GalleryPicture.create({
-			userId: userId,
-			galleryId: req.body.galleryId,
-			pictureId: req.params.pictureId
-		});
-
-		return res.sendStatus(204);
+		const token = req.headers?.authorization?.split(" ")[1];
+			if (!token) {
+				res.sendStatus(403)
+			}
+			try {
+				const data = jwt.verify(token, process.env.JWT_SECRET)
+				await GalleryPicture.create({
+					userId: data.id,
+					galleryId: req.body.galleryId,
+					pictureId: req.params.pictureId
+				});
+		
+				return res.sendStatus(204);
+			} catch (err) {
+				console.log(err);
+				return res.status(403).json({ msg: "Invalid or missing token" })
+			}
 	} catch (error) {
 		if (error.name === "SequelizeUniqueConstraintError") {
 			return res.sendStatus(409);
@@ -38,18 +47,29 @@ router.post("/:pictureId/gallery", async (req, res) => {
 router.delete("/:pictureId/gallery/:galleryId", async (req, res) => {
 	try {
 		const userId = 1;
-		const rows = await GalleryPicture.destroy({
-			where: {
-				userId: userId,
-				galleryId: req.params.galleryId,
-				pictureId: req.params.pictureId
+		const token = req.headers?.authorization?.split(" ")[1];
+			if (!token) {
+				res.sendStatus(403)
 			}
-		});
-		if (rows === 0) {
-			return res.sendStatus(404);
-		}
-
-		return res.status(200).json({ rows: rows });
+			try {
+				const data = jwt.verify(token, process.env.JWT_SECRET)
+				const rows = await GalleryPicture.destroy({
+					where: {
+						userId: data.id,
+						galleryId: req.params.galleryId,
+						pictureId: req.params.pictureId
+					}
+				});
+				if (rows === 0) {
+					return res.sendStatus(404);
+				}
+		
+				return res.status(200).json({ rows: rows });
+			} catch (err) {
+				console.log(err);
+				return res.status(403).json({ msg: "Invalid or missing token" })
+			}
+		
 	} catch (error) {
 		console.log(error);
 		return res.sendStatus(500);

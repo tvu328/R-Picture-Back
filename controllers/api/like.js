@@ -11,27 +11,26 @@ router.post("/", async (req, res) => {
 		if (typeof (req.body.pictureId) !== 'number' || typeof (req.body.delta) !== 'number') {
 			return res.sendStatus(422);
 		}
-
-		const userId = 1;
-		{// Check that a user has not already liked/disliked this picture.
-			const like = await Like.findOne({
-				where: {
-					pictureId: req.body.pictureId,
-					userId: userId
-				}
-			});
-
-			if (like) {
-				return res.sendStatus(422);
-			}
-		}
-		{// Create the like. TODO: This is not atomic and will need to be made into a transaction.
+		
+		{
 			const token = req.headers?.authorization?.split(" ")[1];
 			if (!token) {
 				res.sendStatus(403)
 			}
 			try {
 				const data = jwt.verify(token, process.env.JWT_SECRET)
+				// Check that a user has not already liked/disliked this picture.
+				const liked = await Like.findOne({
+					where: {
+						pictureId: req.body.pictureId,
+						userId: data.id
+					}
+				});
+	
+				if (liked) {
+					return res.sendStatus(422);
+				}
+				// Create the like. TODO: This is not atomic and will need to be made into a transaction.
 				const like = await Like.create({
 					delta: req.body.delta,
 					pictureId: req.body.pictureId,
